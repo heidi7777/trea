@@ -72,7 +72,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           Hero Image Placeholder
         </div>
         {/* If real image exists:
-        <Image src={project.heroImage} fill className="object-cover" alt={project.title} /> 
+        <Image src={project.heroImage} fill sizes="(max-width: 768px) 100vw, (max-width: 1024px) 90vw, 1200px" className="object-cover" alt={project.title} /> 
         */}
       </AnimatedSection>
 

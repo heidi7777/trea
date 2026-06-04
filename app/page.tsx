@@ -1,11 +1,122 @@
+'use client';
+
+import { useEffect, useState } from 'react';
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { AnimatedSection, AnimatedGroup, AnimatedItem } from "@/components/ui/animated-section"
+import { EditableText } from "@/components/EditableText"
+import { EditableImage } from "@/components/EditableImage"
+
+interface HomeContent {
+  intro: {
+    title: string;
+    description: string;
+    avatarImage: string;
+    version: string;
+    updatedYear: string;
+  };
+  experience: Array<{
+    id: string;
+    period: string;
+    title: string;
+    company: string;
+    description: string;
+  }>;
+  projects: Array<{
+    id: string;
+    title: string;
+    number: string;
+    description: string;
+    tags: string[];
+  }>;
+}
 
 export default function PortfolioPage() {
+  // 提供默认数据
+  const defaultContent: HomeContent = {
+    intro: {
+      title: "DESIGNER\n&\nDEVELOPER",
+      description: "I build minimalist, functional interfaces bridging the gap between rigorous design and robust engineering.",
+      avatarImage: "/avatar.jpg",
+      version: "Version 2.4.1",
+      updatedYear: "Updated 2024"
+    },
+    experience: [
+      {
+        id: "frontend-intern",
+        period: "2024 — Present",
+        title: "Frontend Intern",
+        company: "Tech Corp · Internship",
+        description: "Developed core UI components and improved performance for the main dashboard application. Implemented strict design system guidelines."
+      },
+      {
+        id: "uxui-intern",
+        period: "2023 — 2024",
+        title: "UI/UX Intern",
+        company: "Design Studio · Internship",
+        description: "Assisted in creating design systems and prototyping interactions for client projects. Conducted user research and usability testing."
+      },
+      {
+        id: "computer-science",
+        period: "2021 — 2025",
+        title: "Computer Science",
+        company: "University",
+        description: "Studying Computer Science with focus on human-computer interaction and systems design."
+      }
+    ],
+    projects: [
+      {
+        id: "xiaoyuzhou",
+        title: "Xiaoyuzhou",
+        number: "01",
+        description: "A complete conceptual redesign of the podcast player focusing on minimalist interactions.",
+        tags: ["UX Research", "Figma"]
+      },
+      {
+        id: "tonghuashun",
+        title: "Tonghuashun",
+        number: "02",
+        description: "Financial data visualization dashboard for retail investors.",
+        tags: ["React", "Data Viz"]
+      },
+      {
+        id: "design-system",
+        title: "Personal Design System",
+        number: "03",
+        description: "A strictly defined design system modeled after teenage engineering's aesthetic. Features custom typography scales, rigid spacing variables, and high-contrast components.",
+        tags: ["Design System", "Tailwind CSS"]
+      }
+    ]
+  };
+
+  const [content, setContent] = useState<HomeContent>(defaultContent);
+
+  useEffect(() => {
+    const loadContent = async () => {
+      try {
+        const response = await fetch('/api/content?type=home&id=home-content');
+        if (response.ok) {
+          const data = await response.json();
+          // 深度合并：用返回的数据覆盖默认值，确保不缺失字段
+          setContent(prev => ({
+            intro: { ...prev.intro, ...(data.intro || {}) },
+            experience: Array.isArray(data.experience) ? data.experience : prev.experience,
+            projects: Array.isArray(data.projects) ? data.projects : prev.projects,
+          }));
+        }
+      } catch (error) {
+        console.error('Failed to load content:', error);
+      }
+    };
+
+    loadContent();
+  }, []);
+
+  const displayContent = content;
+
   return (
     <div className="min-h-screen bg-background text-foreground font-te-20 selection:bg-accent selection:text-accent-foreground overflow-x-hidden">
       
@@ -57,23 +168,50 @@ export default function PortfolioPage() {
                 <span className="hidden sm:inline">LON: 121.4737 E</span>
               </div>
               
-              <h1 className="text-[50px] md:text-[80px] lg:text-[100px] font-te-40 leading-[0.9] tracking-tight mb-[33px]">
-                <span className="block">DESIGNER</span>
-                <span className="block text-muted-foreground">&</span>
-                <span className="block">DEVELOPER</span>
+              <h1 className="text-[50px] md:text-[80px] lg:text-[100px] font-te-40 leading-[0.9] tracking-tight mb-[33px] whitespace-pre-wrap">
+                <EditableText
+                  value={displayContent?.intro?.title || defaultContent.intro.title}
+                  dataType="home"
+                  dataId="home-content"
+                  fieldPath="intro.title"
+                  isMultiline={true}
+                  className="block"
+                />
               </h1>
-              
+
               <p className="text-[19px] md:text-[24px] text-foreground max-w-lg leading-snug mb-[33px]">
-                I build minimalist, functional interfaces bridging the gap between rigorous design and robust engineering. 
+                <EditableText
+                  value={displayContent?.intro?.description || defaultContent.intro.description}
+                  dataType="home"
+                  dataId="home-content"
+                  fieldPath="intro.description"
+                  className=""
+                />
               </p>
-              
+
               <div className="flex items-center gap-[22px]">
                 <Button className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-none text-[13px] px-8 py-6 uppercase tracking-wider transition-transform hover:-translate-y-1">
                   Download Resume
                 </Button>
                 <div className="text-[13px] text-muted-foreground uppercase tracking-widest flex flex-col">
-                  <span>Version 2.4.1</span>
-                  <span>Updated 2024</span>
+                  <span>
+                    <EditableText
+                      value={displayContent?.intro?.version || defaultContent.intro.version}
+                      dataType="home"
+                      dataId="home-content"
+                      fieldPath="intro.version"
+                      className="text-muted-foreground"
+                    />
+                  </span>
+                  <span>
+                    <EditableText
+                      value={displayContent?.intro?.updatedYear || defaultContent.intro.updatedYear}
+                      dataType="home"
+                      dataId="home-content"
+                      fieldPath="intro.updatedYear"
+                      className="text-muted-foreground"
+                    />
+                  </span>
                 </div>
               </div>
             </div>
@@ -83,13 +221,17 @@ export default function PortfolioPage() {
               <div className="relative w-full max-w-[450px] aspect-[3/4] bg-muted border border-border p-4 group">
                 <div className="absolute top-2 left-2 text-[10px] text-muted-foreground font-mono">FIG-01</div>
                 <div className="absolute bottom-2 right-2 text-[10px] text-muted-foreground font-mono">100% SCALE</div>
-                
+
                 <div className="relative w-full h-full overflow-hidden border border-border">
-                  <Image 
-                    src="/avatar.jpg" 
-                    alt="Avatar" 
-                    fill 
+                  <EditableImage
+                    src={displayContent?.intro?.avatarImage || defaultContent.intro.avatarImage}
+                    alt="Avatar"
+                    dataType="home"
+                    dataId="home-content"
+                    fieldPath="intro.avatarImage"
+                    fill
                     className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, 450px"
                     priority
                   />
                   {/* 扫描线效果 */}
@@ -357,6 +499,7 @@ export default function PortfolioPage() {
                   src="/wechat-qr.jpg" 
                   alt="WeChat QR Code" 
                   fill 
+                  sizes="150px"
                   className="object-contain p-2 mix-blend-multiply"
                 />
               </div>
