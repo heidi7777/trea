@@ -245,7 +245,7 @@ export default function PortfolioPage() {
                       </div>
                     </CardHeader>
                     <CardContent className="p-[33px] pt-0">
-                      <p className="text-[19px] text-muted-foreground leading-relaxed">A strictly defined design system modeled after teenage engineering's aesthetic. Features custom typography scales, rigid spacing variables, and high-contrast components.</p>
+                      <p className="text-[19px] text-muted-foreground leading-relaxed">A strictly defined design system modeled after teenage engineering&apos;s aesthetic. Features custom typography scales, rigid spacing variables, and high-contrast components.</p>
                     </CardContent>
                   </div>
                 </Card>
@@ -320,7 +320,7 @@ export default function PortfolioPage() {
         <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-[66px] relative z-10">
           <div className="flex flex-col justify-between h-full">
             <div>
-              <h2 className="text-[50px] md:text-[80px] font-te-40 mb-[22px] text-canvas leading-none">Let's connect.</h2>
+              <h2 className="text-[50px] md:text-[80px] font-te-40 mb-[22px] text-canvas leading-none">Let&apos;s connect.</h2>
               <p className="text-[19px] text-steel max-w-md">Currently open for new opportunities and interesting collaborations.</p>
               
               <div className="flex flex-wrap gap-[33px] mt-[44px]">
