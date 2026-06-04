@@ -174,7 +174,7 @@ export function MarkdownRenderer({
   return (
     <div
       className={cn(
-        "markdown-content space-y-8 border-border text-[19px] leading-relaxed",
+        "prose markdown-content max-w-none space-y-8 border-border text-[19px] leading-relaxed",
         tone === "dark" ? "text-steel" : "text-foreground",
         className
       )}

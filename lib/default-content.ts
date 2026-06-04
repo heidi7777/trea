@@ -1,3 +1,67 @@
+export type HomeExperienceItem = {
+  period: string
+  title: string
+  organization: string
+  description: string
+}
+
+export type HomeProjectCard = {
+  slug: string
+  previewLabel: string
+  title: string
+  index: string
+  tags: string[]
+  description: string
+  wide?: boolean
+}
+
+export type HomeThoughtCard = {
+  slug: string
+  type: string
+  date: string
+  title: string
+  description: string
+  featured?: boolean
+}
+
+export type HomeLink = {
+  label: string
+  href: string
+}
+
+export type HomeContent = {
+  nav: string[]
+  mobileSystemLabel: string
+  hero: {
+    status: string
+    latitude: string
+    longitude: string
+    headline: string[]
+    intro: string
+    ctaLabel: string
+    version: string
+    updated: string
+    avatarImage: string
+    avatarAlt: string
+  }
+  experienceTitle: string
+  experiences: HomeExperienceItem[]
+  projectsTitle: string
+  projectsKicker: string
+  projects: HomeProjectCard[]
+  thoughtsTitle: string
+  thoughts: HomeThoughtCard[]
+  contact: {
+    title: string
+    description: string
+    links: HomeLink[]
+    qrImage: string
+    qrAlt: string
+    qrCaption: string
+    copyright: string
+  }
+}
+
 export type ProjectContent = {
   title: string
   subtitle: string
@@ -94,5 +158,113 @@ export const defaultThoughts: Record<string, ThoughtContent> = {
     type: "Note",
     readTime: "2 min read",
     body: `Treating software like hardware.\n\nThere is a distinct satisfaction in interacting with a well-machined physical object—the satisfying click of a mechanical switch, the smooth resistance of a metal dial. In software, we often lose this tactility, settling for 'good enough' interactions built on generic component libraries.\n\nWhat happens when we apply industrial design principles to frontend engineering? We begin to care about the micro-interactions: the exact bezier curve of an easing function, the sub-pixel alignment of borders, the consistent application of a highly constrained color palette.\n\nRigid constraints do not stifle creativity; they channel it. When you only have two font weights and four colors to work with, you are forced to solve hierarchy problems through layout, spacing, and rhythm rather than relying on superficial decoration. This is the essence of engineering precision in UI design.`,
+  },
+}
+
+export const defaultHomeContent: HomeContent = {
+  nav: ["Intro", "Experience", "Projects", "Thoughts", "Contact"],
+  mobileSystemLabel: "SYS.OP",
+  hero: {
+    status: "SYS_ONLINE",
+    latitude: "LAT: 31.2304 N",
+    longitude: "LON: 121.4737 E",
+    headline: ["DESIGNER", "&", "DEVELOPER"],
+    intro:
+      "I build minimalist, functional interfaces bridging the gap between rigorous design and robust engineering.",
+    ctaLabel: "Download Resume",
+    version: "Version 2.4.1",
+    updated: "Updated 2024",
+    avatarImage: "/avatar.jpg",
+    avatarAlt: "Avatar",
+  },
+  experienceTitle: "Experience",
+  experiences: [
+    {
+      period: "2024 — Present",
+      title: "Frontend Intern",
+      organization: "Tech Corp · Internship",
+      description:
+        "Developed core UI components and improved performance for the main dashboard application. Implemented strict design system guidelines.",
+    },
+    {
+      period: "2023 — 2024",
+      title: "UI/UX Intern",
+      organization: "Design Studio · Internship",
+      description:
+        "Assisted in creating design systems and prototyping interactions for client projects. Conducted user research and usability testing.",
+    },
+    {
+      period: "2021 — 2025",
+      title: "Computer Science",
+      organization: "University Name · Campus",
+      description:
+        "Focus on human-computer interaction and software engineering. Led the university tech club and organized multiple hackathons.",
+    },
+  ],
+  projectsTitle: "Projects",
+  projectsKicker: "Selected Works (3)",
+  projects: [
+    {
+      slug: "xiaoyuzhou",
+      previewLabel: "Xiaoyuzhou Preview",
+      title: "Xiaoyuzhou",
+      index: "01",
+      tags: ["UX Research", "Figma"],
+      description:
+        "A complete conceptual redesign of the podcast player focusing on minimalist interactions.",
+    },
+    {
+      slug: "tonghuashun",
+      previewLabel: "Tonghuashun Preview",
+      title: "Tonghuashun",
+      index: "02",
+      tags: ["React", "Data Viz"],
+      description:
+        "Financial data visualization dashboard for retail investors.",
+    },
+    {
+      slug: "design-system",
+      previewLabel: "Design System Preview",
+      title: "Personal Design System",
+      index: "03",
+      tags: ["Design System", "Tailwind CSS"],
+      description:
+        "A strictly defined design system modeled after teenage engineering's aesthetic. Features custom typography scales, rigid spacing variables, and high-contrast components.",
+      wide: true,
+    },
+  ],
+  thoughtsTitle: "Thoughts",
+  thoughts: [
+    {
+      slug: "empty-space",
+      type: "Essay",
+      date: "Oct 12, 2023",
+      title: "The Value of Empty Space",
+      description:
+        "In modern interface design, silence is as important as the notes. Embracing void areas allows critical information to breathe and establishes a natural hierarchy without relying on heavy borders or explicit dividers.",
+      featured: true,
+    },
+    {
+      slug: "engineering-precision",
+      type: "Note",
+      date: "Nov 04, 2023",
+      title: "Engineering Precision",
+      description:
+        "Treating software like hardware. Why rigid constraints lead to better creative outcomes in frontend development.",
+    },
+  ],
+  contact: {
+    title: "Let's connect.",
+    description:
+      "Currently open for new opportunities and interesting collaborations.",
+    links: [
+      { label: "Email", href: "mailto:hello@example.com" },
+      { label: "Xiaohongshu", href: "https://xiaohongshu.com" },
+      { label: "GitHub", href: "https://github.com" },
+    ],
+    qrImage: "/wechat-qr.jpg",
+    qrAlt: "WeChat QR Code",
+    qrCaption: "Scan to add",
+    copyright: "All rights reserved.",
   },
 }

@@ -1,8 +1,10 @@
 import fs from "fs/promises"
 import path from "path"
 import {
+  defaultHomeContent,
   defaultProjects,
   defaultThoughts,
+  type HomeContent,
   type ProjectContent,
   type ThoughtContent,
 } from "@/lib/default-content"
@@ -93,6 +95,32 @@ export async function saveContent(
 
   const filePath = path.join(dir, `${id}.json`)
   await fs.writeFile(filePath, JSON.stringify(data, null, 2), "utf-8")
+}
+
+export async function getHomeContent(): Promise<HomeContent> {
+  let localContent: Partial<HomeContent> = {}
+
+  try {
+    const data = await readJsonContent("pages", "home")
+    if (isRecord(data)) {
+      localContent = data
+    }
+  } catch {
+    // Local home page content is optional.
+  }
+
+  return {
+    ...defaultHomeContent,
+    ...localContent,
+    hero: {
+      ...defaultHomeContent.hero,
+      ...(isRecord(localContent.hero) ? localContent.hero : {}),
+    },
+    contact: {
+      ...defaultHomeContent.contact,
+      ...(isRecord(localContent.contact) ? localContent.contact : {}),
+    },
+  }
 }
 
 export async function getProjectContent(

@@ -84,3 +84,37 @@
     @apply font-te-40 font-light;
   }
 }
+
+
+@layer components {
+  .prose {
+    color: var(--color-foreground);
+    font-family: var(--font-te-20);
+  }
+
+  .prose :where(h1, h2, h3) {
+    color: var(--color-foreground);
+    font-family: var(--font-te-40);
+    line-height: 1.1;
+  }
+
+  .prose :where(p, ul, ol, blockquote, pre) {
+    margin-block: 1.5rem;
+  }
+
+  .prose :where(ul, ol) {
+    padding-inline-start: 1.5rem;
+  }
+
+  .prose :where(li) {
+    margin-block: 0.5rem;
+  }
+
+  .prose :where(a) {
+    color: var(--color-accent);
+  }
+
+  .prose :where(code, pre) {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  }
+}

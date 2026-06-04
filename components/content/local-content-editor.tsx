@@ -1,14 +1,24 @@
+// TODO: [上线前必改] 部署到生产环境前，必须加上 process.env.NODE_ENV !== 'development' 的拦截逻辑
 "use client"
 
 import { useMemo, useState } from "react"
 import { useRouter } from "next/navigation"
 
-import type { ProjectContent, ThoughtContent } from "@/lib/default-content"
+import type {
+  HomeContent,
+  ProjectContent,
+  ThoughtContent,
+} from "@/lib/default-content"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
 
 type EditorMode =
+  | {
+      kind: "home"
+      id: "home"
+      initialContent: HomeContent
+    }
   | {
       kind: "project"
       id: string
@@ -48,10 +58,14 @@ export function LocalContentEditor(props: EditorMode) {
   )
   const [message, setMessage] = useState("")
   const [content, setContent] = useState(props.initialContent)
+  const [homeDraft, setHomeDraft] = useState(() =>
+    props.kind === "home" ? JSON.stringify(props.initialContent, null, 2) : ""
+  )
 
+  const isHome = props.kind === "home"
   const isProject = props.kind === "project"
   const markdownType = isProject ? "project-markdown" : "thought-markdown"
-  const metadataType = isProject ? "projects" : "thoughts"
+  const metadataType = isHome ? "pages" : isProject ? "projects" : "thoughts"
 
   const metadata = useMemo(
     () =>
@@ -66,8 +80,20 @@ export function LocalContentEditor(props: EditorMode) {
     setMessage("Saving local content…")
 
     try {
-      await saveLocalContent(metadataType, props.id, metadata)
-      await saveLocalContent(markdownType, props.id, content.body)
+      if (isHome) {
+        await saveLocalContent(
+          metadataType,
+          props.id,
+          JSON.parse(homeDraft) as HomeContent
+        )
+      } else {
+        await saveLocalContent(metadataType, props.id, metadata)
+        await saveLocalContent(
+          markdownType,
+          props.id,
+          (content as ProjectContent | ThoughtContent).body
+        )
+      }
       setStatus("saved")
       setMessage("Saved locally. Refreshing page content…")
       router.refresh()
@@ -132,18 +158,26 @@ export function LocalContentEditor(props: EditorMode) {
                 <h3 className="text-[13px] font-bold tracking-widest uppercase">
                   Text fields
                 </h3>
-                <label className="block space-y-2 text-[13px] tracking-widest text-muted-foreground uppercase">
-                  Title
-                  <input
-                    className={inputClassName()}
-                    value={content.title}
-                    onChange={(event) =>
-                      updateField("title", event.target.value)
-                    }
-                  />
-                </label>
+                {!isHome && (
+                  <label className="block space-y-2 text-[13px] tracking-widest text-muted-foreground uppercase">
+                    Title
+                    <input
+                      className={inputClassName()}
+                      value={(content as ProjectContent | ThoughtContent).title}
+                      onChange={(event) =>
+                        updateField("title", event.target.value)
+                      }
+                    />
+                  </label>
+                )}
 
-                {isProject ? (
+                {isHome ? (
+                  <p className="text-[13px] leading-relaxed text-muted-foreground">
+                    Edit the home page as JSON. This keeps every homepage text,
+                    image path, nav item, card, and link configurable from one
+                    local file.
+                  </p>
+                ) : isProject ? (
                   <>
                     <label className="block space-y-2 text-[13px] tracking-widest text-muted-foreground uppercase">
                       Subtitle
@@ -222,6 +256,19 @@ export function LocalContentEditor(props: EditorMode) {
                 )}
               </section>
 
+              {isHome && (
+                <section className="space-y-4">
+                  <h3 className="text-[13px] font-bold tracking-widest uppercase">
+                    Home page JSON
+                  </h3>
+                  <Textarea
+                    className="min-h-[520px] font-mono text-[13px] leading-relaxed"
+                    value={homeDraft}
+                    onChange={(event) => setHomeDraft(event.target.value)}
+                  />
+                </section>
+              )}
+
               {isProject && (
                 <section className="space-y-4">
                   <h3 className="text-[13px] font-bold tracking-widest uppercase">
@@ -265,20 +312,24 @@ export function LocalContentEditor(props: EditorMode) {
                 </section>
               )}
 
-              <section className="space-y-4">
-                <h3 className="text-[13px] font-bold tracking-widest uppercase">
-                  Markdown body
-                </h3>
-                <p className="text-[13px] leading-relaxed text-muted-foreground">
-                  This field is saved as local Markdown and rendered below the
-                  project introduction or document header.
-                </p>
-                <Textarea
-                  className="min-h-[360px] font-mono text-[14px] leading-relaxed"
-                  value={content.body}
-                  onChange={(event) => updateField("body", event.target.value)}
-                />
-              </section>
+              {!isHome && (
+                <section className="space-y-4">
+                  <h3 className="text-[13px] font-bold tracking-widest uppercase">
+                    Markdown body
+                  </h3>
+                  <p className="text-[13px] leading-relaxed text-muted-foreground">
+                    This field is saved as local Markdown and rendered below the
+                    project introduction or document header.
+                  </p>
+                  <Textarea
+                    className="min-h-[360px] font-mono text-[14px] leading-relaxed"
+                    value={(content as ProjectContent | ThoughtContent).body}
+                    onChange={(event) =>
+                      updateField("body", event.target.value)
+                    }
+                  />
+                </section>
+              )}
             </div>
 
             <div className="flex items-center justify-between gap-4 border-t border-border p-6">
@@ -298,7 +349,11 @@ export function LocalContentEditor(props: EditorMode) {
                 disabled={status === "saving"}
                 onClick={handleSave}
               >
-                {status === "saving" ? "Saving…" : "Save locally"}
+                {status === "saving"
+                  ? "Saving…"
+                  : isHome
+                    ? "Save home JSON"
+                    : "Save locally"}
               </Button>
             </div>
           </aside>
