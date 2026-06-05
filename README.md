@@ -1,37 +1,91 @@
-# 任务目标：基于已初始化的 Next.js + Shadcn UI 项目，搭建个人作品集首页 (app/page.tsx)。
+太棒了，链路彻底打通意味着你的全栈 CMS 闭环已经完美运转了！用 **Vibe Coding** 的节奏配合 AI 辅助，这种“即改即见、本地落盘”的体验确实非常丝滑。
 
-## 关键背景信息
-你正在 `my-portfolio-code/huijing` 这个 Next.js 工程目录下工作。
-我已经为你提供了定制的 `style` 文件夹（包含设计变量规范），并且已经运行了 `npx shadcn@latest add button card badge`，在 `components/ui` 目录下生成了所需的基础组件。
+根据你目前的目录结构（Next.js 15+ App Router, Radix UI/Shadner 风格组件, TinaCMS, Tailwind CSS），我为你设计了一份排版精美、契合 Vibe Coding 气质的 GitHub `README.md`。它不仅突出了你的前沿技术栈，还将你刚刚攻克的可视化编辑链路作为核心亮点进行了包装。
 
-## 核心执行步骤与强制规则
+你可以直接使用或交给 Trae 让他一键写入项目的 `README.md` 中：
 
-### Step 1: 挂载全局样式
-在写任何页面结构之前，请确保你已经读取了 `style` 文件夹下的设计规范（例如 `DESIGN.md`，或者 CSS 变量文件）。
-- 你必须将 `app/globals.css` 中的 `:root` 变量，替换为 `style` 文件夹中定义的主题颜色和排版规则。
-- 确保 `tailwind.config.ts` 中的 `theme.extend` 配置（如 colors, fontFamily）与我提供的样式规范精准映射。
+---
 
-### Step 2: 页面模块规划
-页面必须分为以下四个连续的 Section（自上而下），同时tab可以进行快速定位：
-1. **个人介绍**：极简布局，用于展示个人照片以及简短介绍。有一处按钮可以一键获得简历。
-2. **过往履历**：包括实习和校园履历两个部分。时间轴呈现。
-3. **核心项目**：3-4个过往实习项目。
-4. **浴室沉思**：放置1-2个个人思考。
-5. **联系方式**：极简底部通栏布局。邮箱、微信二维码，以及指向外部的链接（小红书）。
-> **硬性原则：每个 section 布局必须不同。** 不要使用单一的居中列表一到底。
+```markdown
+# 🚀 Project SMEs (JewelAI Core)
 
-### Step 3: 选组件填充 (禁止默认样式)
-在搭建上述 Section 时，**禁止使用任何 HTML 的默认样式**（如默认的 `<blockquote>`, 无样式的 `<ul>/<ol>`, 默认 `border` 等）。
-你必须严格从 `components/ui` 目录中导入并使用 Shadcn 组件：
-- 使用 `<Button>` 实现下载简历和外链跳转的交互。
-- 使用 `<Card>`, `<CardHeader>`, `<CardContent>` 等封装作品集项目（如“小宇宙”、“同花顺”案例）。
-- 使用 `<Badge>` 展示诸如“设计心理学”、“全栈独立开发”等核心技能点。
-- *如果某个区域实在没有现成组件，你必须使用 Tailwind 自行手写，但必须符合 `style` 中的 `brand-dna` 规范（使用系统变量色值）。*
+> **Vibe Coding Prototype** — 一个基于 Human-Machine Symbiotic（人机共生）理念打造的数字化升级试验场。结合 Next.js 极致的开发体验与 TinaCMS 的本地断点持久化，实现内容、代码与 AI 工作流的无缝编织。
 
-### Step 4: 自检与交付
-完成代码编写后，请自检：
-1. 页面是否在终端无报错启动？
-2. 每一个区块（Section）是否都使用了不同的布局排版手法？
-3. 颜色和阴影是否都是调用的 Tailwind 变量（如 `bg-primary`, `text-muted-foreground`），而非写死的 `#Hex` 值？
+---
 
-**请输出完整的 `app/page.tsx` 代码，以及你在 `app/globals.css` 中需要修改的配置代码。**
+## ✨ 项目亮点 (Core Highlights)
+
+*   **⚡ 纯粹的 Vibe Coding 体验**：结合 AI 编程助手进行敏捷迭代，代码架构即是设计语言。
+*   **🎨 实时人机共生编辑 (Symbiotic Live Editing)**：
+    *   引入 **TinaCMS 本地 GraphQL 引擎**，打破传统无头 CMS 的暗盒操作。
+    *   支持**前端一键切换「编辑模式」**，在本地 `/admin/index.html` 实现完全可视化的内容微调。
+    *   **热更新落盘**：所有可视化修改通过本地 GraphQL Mutation 直连文件系统，动态更新本地 Markdown / JSON，真正做到“所见即所得，所得即代码”。
+*   **💎 模块化可插拔组件**：内置强类型的 `EditableText` 与 `EditableImage` 抽象封装，让底层静态数据具备动态生命力。
+*   **🎨 精准工程设计语言**：遵循严格的 Token 体系（`tokens.json`, `variables.css`），将设计系统（Design System）深度融入 Tailwind CSS。
+
+---
+
+## 🛠️ 技术栈 (Tech Stack)
+
+项目采用当下最前沿的前端生产力工具链进行构建：
+
+| 领域 | 核心技术 | 作用说明 |
+| :--- | :--- | :--- |
+| **核心框架** | **Next.js (App Router)** | 全栈同构渲染、极速热重载 (Fast Refresh) 与强类型路由。 |
+| **内容引擎** | **TinaCMS (Local GraphQL)** | 基于本地文件系统的 Git-backed Git-less 双模无头 CMS。 |
+| **样式与UI** | **Tailwind CSS + Lucide** | 基于原子化 CSS 的高性能样式系统与现代图标库。 |
+| **组件基础** | **Radix UI Primitive** | 提供无样式、无障碍访问 (A11y) 的底层交互骨架。 |
+| **工程质量** | **Jest + ESLint + Prettier** | 自动化单元测试与统一的代码格式化守卫。 |
+
+---
+
+## 📦 目录规约 (Repository Structure)
+
+```text
+├── tina/                      # TinaCMS Schema 配置及自动生成的 GraphQL 客户端
+├── content/                   # 核心持久化内容文件 (Markdown / JSON 数据层)
+├── components/                # 核心 UI 库
+│   ├── EditableText.tsx       # 可视化文本桥接组件
+│   └── ui/                    # 原子化原子组件 (Button, Card, Badge)
+├── app/                       # Next.js App Router 页面层 (Projects, Thoughts)
+├── style/                     # 设计系统 Token 汇聚地 (Theme/CSS Variables)
+└── public/admin/              # TinaCMS CLI 静态编译生成的后台单页应用 (SPA)
+
+```
+
+---
+
+## 🚀 本地快速启动 (Quick Start)
+
+### 1. 安装依赖
+
+```bash
+npm install
+
+```
+
+### 2. 启动开发服务器 (同时拉起 Next.js 与 TinaCMS Dev Server)
+
+```bash
+npm run dev
+
+```
+
+启动后，你可以在终端看到双端口并行：
+
+* **前端预览**: [http://localhost:3000](https://www.google.com/search?q=http://localhost:3000)
+* **可视化后台**: [http://localhost:3000/admin/index.html](https://www.google.com/search?q=http://localhost:3000/admin/index.html)
+* **GraphQL Playground**: [http://localhost:4001/graphql](https://www.google.com/search?q=http://localhost:4001/graphql)
+
+---
+
+## 🛡️ 开发备忘 (Developer Notes)
+
+* **不要手动修改** `tina/__generated__` 内的任何文件，它们是由编译命令自动生成的。
+* 修改 `tina/config.ts` 中的 Schema 结构后，Tina 编译器会自动更新前端查询所需的 TypeScript Types。
+
+```
+
+---
+
+2026.6.5
