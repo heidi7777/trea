@@ -1,12 +1,3 @@
----
-
-```markdown
-# 🚀 Project SMEs (JewelAI Core)
-
-> **Vibe Coding Prototype** — 一个基于 Human-Machine Symbiotic（人机共生）理念打造的数字化升级试验场。结合 Next.js 极致的开发体验与 TinaCMS 的本地断点持久化，实现内容、代码与 AI 工作流的无缝编织。
-
----
-
 ## ✨ 项目亮点 (Core Highlights)
 
 *   **⚡ 纯粹的 Vibe Coding 体验**：结合 AI 编程助手进行敏捷迭代，代码架构即是设计语言。
