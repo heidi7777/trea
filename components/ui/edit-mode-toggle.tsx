@@ -4,7 +4,7 @@ export function EditModeToggle() {
   return (
     <button
       onClick={() => {
-        window.location.href = '/admin';
+        window.location.href = '/admin/index.html';
       }}
       className={`
         fixed bottom-6 left-6 z-40 px-4 py-2 rounded-none border
