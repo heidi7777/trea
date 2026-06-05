@@ -1,3 +1,7 @@
 {
-  "version": "Version 3.0.0"
+  "version": "Version 3.0.0",
+  "intro": {
+    "title": "DESIGNER1\n&\nDEVELOPERs\n",
+    "updatedYear": "Updated 2021"
+  }
 }

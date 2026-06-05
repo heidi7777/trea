@@ -1,0 +1,64 @@
+{
+  "intro": {
+    "title": "DESIGNER&DEVELOPER1",
+    "description": "I build minimalist, functional interfaces bridging the gap between rigorous design and robust engineering.",
+    "avatarImage": "/avatar.jpg",
+    "version": "Version 2.4.1",
+    "updatedYear": "Updated 2024"
+  },
+  "experience": [
+    {
+      "id": "frontend-intern",
+      "period": "2024 — Present",
+      "title": "Frontend Intern",
+      "company": "Tech Corp · Internship",
+      "description": "Developed core UI components and improved performance for the main dashboard application. Implemented strict design system guidelines."
+    },
+    {
+      "id": "uxui-intern",
+      "period": "2023 — 2024",
+      "title": "UI/UX Intern",
+      "company": "Design Studio · Internship",
+      "description": "Assisted in creating design systems and prototyping interactions for client projects. Conducted user research and usability testing."
+    },
+    {
+      "id": "computer-science",
+      "period": "2021 — 2025",
+      "title": "Computer Science",
+      "company": "University",
+      "description": "Studying Computer Science with focus on human-computer interaction and systems design."
+    }
+  ],
+  "projects": [
+    {
+      "id": "xiaoyuzhou",
+      "title": "Xiaoyuzhou",
+      "number": "01",
+      "description": "A complete conceptual redesign of the podcast player focusing on minimalist interactions.",
+      "tags": [
+        "UX Research",
+        "Figma"
+      ]
+    },
+    {
+      "id": "tonghuashun",
+      "title": "Tonghuashun",
+      "number": "02",
+      "description": "Financial data visualization dashboard for retail investors.",
+      "tags": [
+        "React",
+        "Data Viz"
+      ]
+    },
+    {
+      "id": "design-system",
+      "title": "Personal Design System",
+      "number": "03",
+      "description": "A strictly defined design system modeled after teenage engineering's aesthetic. Features custom typography scales, rigid spacing variables, and high-contrast components.",
+      "tags": [
+        "Design System",
+        "Tailwind CSS"
+      ]
+    }
+  ]
+}
